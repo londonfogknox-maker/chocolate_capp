@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Author Books</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo">
+        <!-- Replace with the path to your actual logo file -->
+        <img src="../assets/images/default_user.png" alt="PeriwinklePunk Logo">
+    </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <div class="dropdown">
+                <button class="dropbtn">Books</button>
+                <div class="dropdown-content">
+                    <a href="mybooks.html">My Books</a>
+                    <a href="moodboard.html">Mood Board</a>
+                </div>
+            </div>            
+            <a href="updates.html">Author Notes</a>
+            <a href="about.html">About</a>
+        </div>
+    </nav>
+
+    <main class="content-area">
+        
+        <div class="page-content">
+            <h1>Book Moodboard</h1>
+            <p>As a lover of books, let me share with you some of my recommendations. Type in what mood you are feeling below!</p>
+        </div>
+
+        <!-- === CHATBOX HTML START === -->
+        <div class="chat-container">
+            
+            <!-- 1. The area where messages will appear -->
+            <div class="chat-messages">
+                <!-- Example chat messages -->
+                <div class="message received">
+                    <span class="message-author">Bookbot</span>
+                    <p>Hi, what kind of books are you in the mood for?</p>
+                    
+                    </div>
+                <div class="message sent">
+                    <span class="message-author">You</span>
+                    <p>Sweet and sad books</p>
+                    
+                    </div>
+                <div class="message received">
+                    <span class="message-author">Casey</span>
+                    <p>Here's five recommendations: </p>
+                    
+                </div>
+            </div>
+
+            <!-- The input area at the bottom -->
+            <div class="chat-input-area">
+                <input type="text" placeholder="Type your message...">
+                <button>Send</button>
+            </div>
+
+        </div>
+        
+    </main>
+
+    <!-- === THREE.JS SCRIPTS === -->
+    <!-- 1. Get the Three.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="wordbg.js"></script>
+
+</body>
+</html>

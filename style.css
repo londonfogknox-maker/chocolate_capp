@@ -1,0 +1,526 @@
+/* === COLOR PALETTE & GLOBAL VARIABLES === */
+:root {
+    /* 1. Define your main color palette */
+    --color-green: #74b294;
+    --color-chocolate-brown: #660000;
+    --color-golden-brown: #b45f06;
+    --color-cream: #fff9ed;
+    --color-black: #1a1a1a;
+    --color-white: #ffffff;
+    --color-periwinkle: #ccccff;
+
+    /* 2. Define semantic roles for your colors (optional but highly recommended) */
+    --color-background: var(--color-cream);
+    --color-text-default: var(--color-black);
+    --color-text-primary: var(--color-chocolate-brown);
+    --color-text-accent: var(--color-green);
+    --color-brand-accent: var(--color-green);
+    --color-button-primary: var(--color-green);
+    --color-button-hover: var(--color-green);
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Georgia', 'Times New Roman', Times, serif;
+    line-height: 1.8;
+    color: var(--color-text-default); 
+
+        /* Make the background transparent so we can see the Three.js canvas behind it */
+    background-color: rgba(255, 249, 237, 0.35); 
+    
+    /* We can remove the CSS gradients now as they will be replaced */
+    background-image: none;
+
+    /* --- Organic Blob Background --- 
+        background-image: 
+        radial-gradient(circle at 10% 20%, var(--color-green)44, transparent 40%),
+        radial-gradient(circle at 90% 80%, var(--color-golden-brown)33, transparent 50%),
+        radial-gradient(circle at 50% 60%, var(--color-chocolate-brown)22, transparent 60%);
+    /*background-attachment: fixed;  It keeps the background stationary while you scroll. */
+}
+/*
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; 
+    background-image: 
+        radial-gradient(circle at 10% 20%, #74b29444, transparent 40%),
+        radial-gradient(circle at 90% 80%, #b45f0633, transparent 50%),
+        radial-gradient(circle at 50% 60%, #66000022, transparent 60%);
+    background-size: 200% 200%;
+    animation: moveBlobs 15s ease-in-out infinite;
+}
+
+@keyframes moveBlobs {
+    0% {
+        background-position: 0% 50%; /* Start position 
+    }
+    50% {
+        background-position: 100% 50%; /* Mid-point position 
+    }
+    100% {
+        background-position: 0% 50%; /* Return to start 
+    }
+}*/
+
+canvas {
+    background-color: var(--color-background); /* White default if bg doesn't work */
+}
+
+/* Navigation Bar Styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(255, 249, 237, 0.75);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* A subtle line using soft black */
+    padding: 14px 20px;
+    text-align: center;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.nav-logo img {
+    height: 50px; 
+    transition: opacity 0.3s ease;
+}
+
+.nav-logo:hover img {
+    opacity: 0.8; 
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+}
+
+.nav-links a {
+    color: var(--color-text-primary); /* Using the deep Chocolate Brown for nav links */
+    padding: 14px 20px;
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--color-text-accent); 
+}
+
+/* Main Content Area */
+.content-area {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+    /* Add a very subtle transparent white background to the text area to improve readability */
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 8px 32px 0 rgba(102, 0, 0, 0.1); /* Shadow using a transparent Chocolate Brown */
+}
+
+img {
+    width: 100%; /* Make the image fill its container */
+    height: auto;
+    border-radius: 12px;
+    border: 8px solid #fff9ed;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5em;
+    color: var(--color-text-primary);
+}
+
+h2 {
+    font-size: 2em;
+    color: var(--color-text-primary);
+    margin-top: 0; /* Remove default top margin */
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--color-text-accent); /* Use Golden Brown for H3 */
+}
+
+p {
+    font-size: 1.1em;
+    line-height: 1.8;
+    text-align: justify;
+}
+
+.author-grid-container {
+    display: grid;
+    /* Create two columns: the first is 350px wide, the second takes the rest of the space (1fr) */
+    grid-template-columns: 350px 1fr;
+    /* Define names for our grid areas for easy placement */
+    grid-template-areas:
+        "title  title"
+        "subtitle   subtitle"
+        "image  text";
+    gap: 50px 40px; /* 20px space between rows, 40px between columns */
+    align-items: start; /* Align items to the top of their grid cell */
+}
+
+.grid-title {
+    grid-area: title; /* This item goes in the "title" area */
+    text-align: center;
+    font-size: 2.5em;
+    color:var(--color-text-primary);
+    margin: 0;
+}
+
+.grid-subtitle {
+    grid-area: subtitle; /* This item goes in the "subtitle" area */
+    text-align: center;
+    font-size: 1.5em;
+    color: var(--color-text-accent);
+    margin: 0;
+    font-weight: normal;
+}
+
+.grid-image {
+    grid-area: image; /* This item goes in the "image" area */
+}
+
+.grid-text {
+    grid-area: text; /* This item goes in the "text" area */
+}
+
+.grid-image img {
+    width: 100%; /* Make the image fill its container */
+    height: auto;
+    border-radius: 12px;
+    border: 8px solid #fff9ed;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.grid-text h2 {
+    font-size: 2em;
+    color: var(--color-text-primary);
+    margin-top: 0; /* Remove default top margin */
+}
+
+.grid-text h3 {
+    font-size: 1.5em;
+    color: var(--color-text-accent); /* Use Golden Brown for H3 */
+}
+
+.grid-text p {
+    font-size: 1.1em;
+    line-height: 1.8;
+    text-align: justify;
+}
+
+.content-grid-container {
+    display: grid;
+    /* Create two columns: the first is 350px wide, the second takes the rest of the space (1fr) */
+    grid-template-columns: 350px 1fr;
+    /* Define names for our grid areas for easy placement */
+    grid-template-areas:
+        "sectiontitle   sectiontitle"
+        "contenttext  contenttext"
+        "contentimage  contentimage";
+    gap: 50px 40px; /* 20px space between rows, 40px between columns */
+    align-items: start; /* Align items to the top of their grid cell */
+}
+
+.grid-contenttitle {
+    grid-area: contenttitle;
+    text-align: center;
+    font-size: 2.5em;
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.grid-contentsubtitle {
+    grid-area: contentsubtitle;
+    text-align: center;
+    font-size: 1.5em;
+    color: var(--color-text-accent);
+    margin: 0;
+    font-weight: normal;
+}
+
+.grid-contentimage {
+    grid-area: contentimage;
+}
+
+.grid-contenttext {
+    grid-area: contenttext;
+}
+
+/* The container for the dropdown */
+.dropdown {
+    position: relative; /* This is crucial for positioning the dropdown content */
+    display: inline-block;
+}
+
+/* The button that looks like a nav link */
+.dropbtn {
+    /* Match the style of your other nav links */
+    color: var(--color-text-primary);
+    padding: 14px 20px;
+    font-size: 17px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    
+    /* Remove default button styling */
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+/* Style the dropdown button on hover to match other links */
+.dropdown:hover .dropbtn {
+    color: var(--color-text-accent);
+}
+
+/* The dropdown content (hidden by default) */
+.dropdown-content {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    background-color: var(--color-background);;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    transform: translateY(-10px); 
+}
+
+/* The links inside the dropdown */
+.dropdown-content a {
+    color: var(--color-text-primary); /* Chocolate Brown text */
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block; /* Make the entire area clickable, not just the text */
+    text-align: left;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: var(--color-button-hover); /* Use a transparent green for the hover effect */
+    color: #000;
+}
+
+/* Show the dropdown menu when hovering over the dropdown container */
+.dropdown:hover .dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* === BOOK PAGE STYLES === */
+
+/* Style for the main title on the books page */
+.page-title {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    font-weight: normal;
+    color: var(--color-text-primary); /* Using your Chocolate Brown */
+}
+
+/* The gallery that holds the book cards */
+.book-gallery {
+    display: grid;
+    /* Create 3 columns on desktop, but let them be at least 280px wide */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px; /* The space between the cards */
+    margin-bottom: 60px;
+}
+
+/* The individual book card */
+.book-card {
+    background-color: var(--color-background); /* Use your Cream color */
+    border-radius: 12px;
+    overflow: hidden; /* Ensures the image corners don't poke out */
+    box-shadow: 0 8px 24px rgba(102, 0, 0, 0.15); /* Softer Chocolate Brown shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Add a subtle lift effect on hover */
+.book-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 32px rgba(102, 0, 0, 0.2);
+}
+
+/* The book cover image */
+.book-cover {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* The container for the text content */
+.book-info {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* This makes all cards the same height */
+}
+
+.book-title {
+    font-size: 1.5em;
+    color: var(--color-text-primary);
+    margin: 0 0 10px 0;
+}
+
+.book-description {
+    font-size: 1em;
+    line-height: 1.6;
+    flex-grow: 1; /* Pushes the button to the bottom */
+    margin-bottom: 20px;
+}
+
+/* The "Learn More" or "Buy Now" button */
+.buy-button {
+    display: inline-block;
+    background-color: var(--color-text-accent); /* Your Golden Brown color */
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 8px;
+    text-align: center;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin-top: auto; /* Aligns button to the bottom */
+}
+
+.buy-button:hover {
+    background-color: var(--color-button-hover); /* Your Green color for hover */
+    color: #fff;
+}
+
+/* === CHATBOX STYLES === */
+
+.chat-container {
+    margin-top: 40px; /* Space between the intro text and the chatbox */
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    overflow: hidden; /* Keeps everything contained within the rounded corners */
+    display: flex;
+    flex-direction: column;
+    height: 60vh; /* Make the chatbox take up 60% of the viewport height */
+    max-height: 700px; /* But don't let it get too tall on large screens */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.chat-messages {
+    flex-grow: 1; /* This makes the message area take up all available space */
+    background-color: rgba(255, 249, 237, 0.7); /* Semi-transparent Cream */
+    padding: 20px;
+    overflow-y: auto; /* Add a scrollbar if messages overflow */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* General message styling */
+.message {
+    padding: 10px 15px;
+    border-radius: 18px;
+    max-width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.message p {
+    margin: 5px 0;
+    text-align: left; /* Override the centered text from other rules */
+}
+
+.message-author {
+    font-weight: bold;
+    font-size: 0.8em;
+    opacity: 0.8;
+}
+
+.message-time {
+    font-size: 0.7em;
+    align-self: flex-end;
+    opacity: 0.6;
+}
+
+/* Styling for messages YOU sent */
+.message.sent {
+    background-color: var(--color-green, #74b294); /* Use your Green color */
+    color: white;
+    align-self: flex-end; /* Align to the right */
+    border-bottom-right-radius: 4px; /* Classic chat bubble shape */
+}
+
+/* Styling for messages you RECEIVED */
+.message.received {
+    background-color: #FFFFFF; /* Plain white for received messages */
+    color: #1a1a1a;
+    align-self: flex-start; /* Align to the left */
+    border-bottom-left-radius: 4px; /* Classic chat bubble shape */
+}
+
+/* Styling for the input area */
+.chat-input-area {
+    display: flex;
+    padding: 15px;
+    background-color: #FFFFFF;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.chat-input-area input {
+    flex-grow: 1;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 10px 15px;
+    font-size: 1em;
+    margin-right: 10px;
+}
+
+.chat-input-area button {
+    background-color: var(--color-golden-brown, #b45f06);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.chat-input-area button:hover {
+    background-color: var(--color-green, #74b294);
+}
+
+/* === SITE FOOTER STYLES === */
+
+.site-footer {
+    /* Use a semi-transparent version of your Chocolate Brown for the background */
+    background-color: var(--color-text-accent); 
+    
+    /* Use the animated blob background for consistency, but slightly different */
+    background-image: 
+        radial-gradient(circle at 70% 30%, #74b29422, transparent 40%),
+        radial-gradient(circle at 20% 90%, #b45f0611, transparent 50%);
+    background-attachment: fixed; /* Keep the background effect consistent */
+    
+    color: var(--color-background); /* Use the Cream color for the text for high contrast */
+    padding: 40px 20px;
+    text-align: center;
+    margin-top: 60px; /* Add space between the main content and the footer */
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.footer-content p {
+    margin: 0;
+    font-size: 0.9em;
+    letter-spacing: 0.5px; /* Add a little spacing for an elegant look */
+}
