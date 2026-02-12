@@ -1,15 +1,16 @@
 /* === COLOR PALETTE & GLOBAL VARIABLES === */
 :root {
-    /* 1. Define your main color palette */
+    /* Define your main color palette */
     --color-green: #74b294;
     --color-chocolate-brown: #660000;
+    --color-berry-brown: #7d2a2a;
     --color-golden-brown: #b45f06;
     --color-cream: #fff9ed;
     --color-black: #1a1a1a;
     --color-white: #ffffff;
     --color-periwinkle: #ccccff;
 
-    /* 2. Define semantic roles for your colors (optional but highly recommended) */
+    /* Define semantic roles for your colors */
     --color-background: var(--color-cream);
     --color-text-default: var(--color-black);
     --color-text-primary: var(--color-chocolate-brown);
@@ -17,6 +18,19 @@
     --color-brand-accent: var(--color-green);
     --color-button-primary: var(--color-green);
     --color-button-hover: var(--color-green);
+    --color-panel-background: rgba(255, 255, 255, 0.3);
+}
+
+/* Dark Mode Theme Definition */
+body.dark-mode {
+    --color-background: var(--color-chocolate-brown);
+    --color-text-default: var(--color-cream);
+    --color-text-primary: var(--color-cream);
+    --color-text-accent: var(--color-periwinkle);
+    --color-brand-accent: var(--color-green);
+    --color-button-primary: var(--color-green);
+    --color-button-hover: var(--color-golden-brown);
+    --color-panel-background: #1a1a1a80;
 }
 
 body, html {
@@ -25,12 +39,10 @@ body, html {
     font-family: 'Georgia', 'Times New Roman', Times, serif;
     line-height: 1.8;
     color: var(--color-text-default); 
-
-        /* Make the background transparent so we can see the Three.js canvas behind it */
-    background-color: rgba(255, 249, 237, 0.35); 
-    
-    /* We can remove the CSS gradients now as they will be replaced */
+    /*background-color: rgba(255, 249, 237, 0.35);*/
+    background-color: var(--color-background); 
     background-image: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
 
     /* --- Organic Blob Background --- 
         background-image: 
@@ -76,11 +88,12 @@ canvas {
 .navbar {
     display: flex;
     justify-content: space-between;
-    background-color: rgba(255, 249, 237, 0.75);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* A subtle line using soft black */
+    background-color: var(--color-panel-background); 
+    border-bottom: 1px solid var(--color-brand-accent);
     padding: 14px 20px;
     text-align: center;
     font-family: Helvetica, Arial, sans-serif;
+    transition: background-color 0.3s ease;
 }
 
 .nav-logo img {
@@ -98,7 +111,7 @@ canvas {
 }
 
 .nav-links a {
-    color: var(--color-text-primary); /* Using the deep Chocolate Brown for nav links */
+    color: var(--color-text-primary);
     padding: 14px 20px;
     text-decoration: none;
     font-size: 17px;
@@ -110,23 +123,69 @@ canvas {
     color: var(--color-text-accent); 
 }
 
-/* Main Content Area */
+/* --- Theme Toggle Switch --- */
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+    margin-left: 20px; /* Adjust spacing as needed */
+}
+.theme-switch {
+    display: inline-block;
+    height: 28px;
+    position: relative;
+    width: 50px;
+}
+.theme-switch input {
+    display: none;
+}
+.slider.round {
+    /* The background of the switch track */
+    background-color: var(--color-background);
+    border: 1px solid var(--color-brand-accent);
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+    border-radius: 28px;
+}
+.slider.round:before {
+    /* The moving circle part of the switch */
+    background-color: var(--color-brand-accent);
+    bottom: 3px;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    position: absolute;
+    transition: .4s;
+    border-radius: 50%;
+}
+input:checked + .slider.round:before {
+    transform: translateX(22px);
+}
+
+/* Main Content Area background-color: rgba(255, 255, 255, 0.3);*/
 .content-area {
     max-width: 800px;
     margin: 40px auto;
     padding: 0 20px;
-    /* Add a very subtle transparent white background to the text area to improve readability */
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: var(--color-panel-background);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background-color 0.3s ease;
     border-radius: 12px;
     padding: 40px;
-    box-shadow: 0 8px 32px 0 rgba(102, 0, 0, 0.1); /* Shadow using a transparent Chocolate Brown */
+    box-shadow: 0 8px 32px 0 rgba(102, 0, 0, 0.1);
 }
 
 img {
     width: 100%; /* Make the image fill its container */
     height: auto;
     border-radius: 12px;
-    border: 8px solid #fff9ed;
+    border: 4px solid #fff9ed;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -195,7 +254,7 @@ p {
     width: 100%; /* Make the image fill its container */
     height: auto;
     border-radius: 12px;
-    border: 8px solid #fff9ed;
+    border: 4px solid #fff9ed;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -385,20 +444,20 @@ p {
 /* The "Learn More" or "Buy Now" button */
 .buy-button {
     display: inline-block;
-    background-color: var(--color-text-accent); /* Your Golden Brown color */
+    background-color: var(--color-button-primary);
     color: #fff;
     padding: 10px 20px;
     text-decoration: none;
-    border-radius: 8px;
+    border-radius: 4px;
     text-align: center;
     font-family: Helvetica, Arial, sans-serif;
     font-weight: bold;
     transition: background-color 0.3s ease;
-    margin-top: auto; /* Aligns button to the bottom */
+    margin-top: auto; 
 }
 
 .buy-button:hover {
-    background-color: var(--color-button-hover); /* Your Green color for hover */
+    background-color: var(--color-button-hover);
     color: #fff;
 }
 
@@ -418,7 +477,7 @@ p {
 
 .chat-messages {
     flex-grow: 1; /* This makes the message area take up all available space */
-    background-color: rgba(255, 249, 237, 0.7); /* Semi-transparent Cream */
+    background-color: #66000080; /* Semi-transparent Cream */
     padding: 20px;
     overflow-y: auto; /* Add a scrollbar if messages overflow */
     display: flex;
@@ -462,7 +521,7 @@ p {
 
 /* Styling for messages you RECEIVED */
 .message.received {
-    background-color: #FFFFFF; /* Plain white for received messages */
+    background-color: var(--color-cream); /* Plain white for received messages */
     color: #1a1a1a;
     align-self: flex-start; /* Align to the left */
     border-bottom-left-radius: 4px; /* Classic chat bubble shape */
@@ -472,7 +531,7 @@ p {
 .chat-input-area {
     display: flex;
     padding: 15px;
-    background-color: #FFFFFF;
+    background-color: var(--color-cream);
     border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -486,7 +545,7 @@ p {
 }
 
 .chat-input-area button {
-    background-color: var(--color-golden-brown, #b45f06);
+    background-color: var(--color-button-primary);
     color: white;
     border: none;
     border-radius: 20px;
@@ -497,7 +556,7 @@ p {
 }
 
 .chat-input-area button:hover {
-    background-color: var(--color-green, #74b294);
+    background-color: var(--color-button-hover);
 }
 
 /* === SITE FOOTER STYLES === */
