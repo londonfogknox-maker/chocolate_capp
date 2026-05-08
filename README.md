@@ -3,10 +3,6 @@ This repo contains all the skeleton static files for an up-coming author, includ
 
 <img width="1355" height="631" alt="Screenshot 2026-02-23 1 53 12 PM" src="https://github.com/user-attachments/assets/96a59bb3-2bff-45c0-a62b-0d7b28e07b7e" />
 
-## 🌐 Live Demo
-Check out the live site here: 
-https://londonfogknox-maker.github.io/chocolate_capp/index.html
-
 ## Overview
 This project was built for a Knoxville local author that needed an offical website and include her base of knowledge of different books she recommends utilizing new LLM technology. 
 
